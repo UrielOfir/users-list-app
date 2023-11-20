@@ -124,7 +124,7 @@ function UsersTable() {
         Header: "Actions",
         Cell: (data: any) => (
           <HStack>
-            <Link href={`/users/${data.cell.row.original.id}`} passHref>
+            <Link href={`/users/${data.cell.row.original.id.value}`} passHref>
               <IconButton
                 aria-label={"Edit user"}
                 icon={<MdArrowRightAlt size={22} />}
@@ -133,7 +133,7 @@ function UsersTable() {
             <IconButton
               aria-label={"Edit user"}
               onClick={() => {
-                setIdToDelete(data.cell.row.original.id);
+                setIdToDelete(data.cell.row.original.id.value);
               }}
               icon={<MdDelete size={22} />}
             />
