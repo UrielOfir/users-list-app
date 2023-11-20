@@ -1,18 +1,21 @@
 export type BasicUser = {
     name: {
+        title: string
         first: string;
         last: string;
     };
     email: string;
     dob: {
+        date: string;
         age: number;
+    };
+    id: {
+        name: string;
+        value: string;
     };
 };
 
 export type DetailedUser = BasicUser & {
-    name: {
-        title: string;
-    };
     location: {
         street: {
             number: number;

@@ -15,6 +15,8 @@ import UsersFilterForm from "@/components/forms/UsersFilterForm";
 import { SubmitHandler } from "react-hook-form";
 import { FormValues } from "@/components/forms/UsersFilterForm/UsersFilterForm";
 import InlineEdit from "@/components/InlineEdit";
+import { BasicUser } from "../../../../../shared-types/Users";
+import axios from "axios";
 
 function UsersTable() {
   const perPage = 50;
@@ -34,19 +36,23 @@ function UsersTable() {
     data: users,
     isLoading,
     error,
-  } = useQuery(["user", page, searchTerm, applitedFilters], () =>
-    api
-      .get("users", {
-        params: {
-          q: searchTerm,
-          page,
-          perPage,
-          order: "created_at",
-          status: true,
-          ...applitedFilters,
-        },
-      })
-      .then((response) => response.data)
+  } = useQuery(
+    ["user", page, searchTerm, applitedFilters],
+    () =>
+      axios
+        .get("http://localhost:3010/users")
+        // api
+        //   .get("users", {
+        //     params: {
+        //       q: searchTerm,
+        //       page,
+        //       perPage,
+        //       order: "created_at",
+        //       status: true,
+        //       ...applitedFilters,
+        //     },
+        //   })
+        .then((response) => response.data) as Promise<BasicUser[]>
   );
 
   const onEscapeKeypress = useCallback(() => {
@@ -59,9 +65,12 @@ function UsersTable() {
       {
         Header: "Name",
         accessor: "name",
-        Cell: (data: any) => (
+        Cell: ({ value, row: { original } }) => (
           <div>
-            <InlineEdit
+            <a href={`/users/${original.id.value}`}>
+              {value.first} {value.last}
+            </a>
+            {/* <InlineEdit
               isEditing={currentCell === data.cell.row.original.id}
               onClickEdit={() => {
                 setCurrentCell(data.cell.row.original.id);
@@ -98,8 +107,7 @@ function UsersTable() {
                   onEscapeKeypress={onEscapeKeypress}
                 />
               }
-            />
-            <a href={`/users/${data.cell.row.original.id}`}>details</a>
+            /> */}
           </div>
         ),
       },
@@ -109,9 +117,8 @@ function UsersTable() {
       },
       {
         Header: "Age",
-        accessor: (row: { createdAt: string }) =>
-          format(parseISO(row.createdAt), "Pp"),
-        id: "createdAt",
+        accessor: "dob",
+        Cell: ({ value }) => value.age,
       },
       {
         Header: "Actions",
@@ -135,13 +142,13 @@ function UsersTable() {
       },
     ],
     [
-      applitedFilters,
-      currentCell,
-      currentText,
-      onEscapeKeypress,
-      page,
-      queryClient,
-      searchTerm,
+      // applitedFilters,
+      // currentCell,
+      // currentText,
+      // onEscapeKeypress,
+      // page,
+      // queryClient,
+      // searchTerm,
     ]
   );
 
@@ -193,7 +200,7 @@ function UsersTable() {
       />
       <DataTable
         columns={columns}
-        data={users?.data}
+        data={users}
         pagination={users?.pagination}
         page={page}
         onChangePage={setPage}
