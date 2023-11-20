@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import PrivatePage from "@/layouts/PrivatePage";
-import { Container } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import React, { ReactElement, useRef } from "react";
 import { NextPageWithLayout } from "../_app";
 import api, { getAPIClient, httpErrorHandler } from "@/services/api";
@@ -13,6 +13,7 @@ import omit from "lodash.omit";
 import { removeEmptyValues } from "@/utils/parse";
 import { UserFormRefType } from "@/components/forms/UserForm/UserForm";
 import axios from "axios";
+import Image from "next/image";
 
 //TODO: fix the type of UserData
 type Props = {
@@ -38,6 +39,14 @@ const UserId: NextPageWithLayout<Props> = ({ data }) => {
 
   return (
     <Container maxW="1400px" m="auto" py={10}>
+      <Flex justifyContent="center" alignItems="center">
+        <img
+          src={data.picture.large}
+          alt="User picture"
+          width={100}
+          height={100}
+        />
+      </Flex>
       <UserForm ref={formRef} onSubmit={onSubmit} defaultValues={data} />
     </Container>
   );

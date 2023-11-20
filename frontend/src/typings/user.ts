@@ -1,6 +1,7 @@
 import { ApiPagination } from "./api";
 
 export type UserData = {
+  picture: any;
   createdAt: string;
   email: string;
   id: string;
