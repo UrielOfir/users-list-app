@@ -36,14 +36,15 @@ const UserForm: ForwardRefRenderFunction<UserFormRefType, Props> = (
 ) => {
   const { handleSubmit, control, setError, setValue } = useForm({
     defaultValues: {
-      id: "",
-      createdAt: "",
       email: "",
-      name: "",
-      password: "",
-      confirmPassword: "",
       status: true,
       ...defaultValues,
+      id: defaultValues.id.value,
+      name: `${defaultValues.name.first} ${defaultValues.name.last}`,
+      gender: defaultValues.name.title === "Mr" ? "male" : "female",
+      dob: new Date(defaultValues.dob.date).toISOString().split("T")[0],
+      country: defaultValues.location.country,
+      city: defaultValues.location.city,
     },
     resolver: yupResolver(schema(defaultValues?.id)),
   });
@@ -62,19 +63,17 @@ const UserForm: ForwardRefRenderFunction<UserFormRefType, Props> = (
       noValidate
     >
       <InputText label="Name" name="name" control={control} />
-      <InputText label="Email" type="email" name="email" control={control} />
+      <InputText label="Gender" type="text" name="gender" control={control} />
+      <InputText label="Country" type="text" name="country" control={control} />
+      <InputText label="City" type="text" name="city" control={control} />
       <InputText
-        type="password"
-        label="Password"
-        name="password"
+        label="Date of Birth"
+        type="date"
+        name="dob"
         control={control}
       />
-      <InputText
-        type="password"
-        label="Confirm password"
-        name="confirmPassword"
-        control={control}
-      />
+      <InputText label="Phone" type="tel" name="cell" control={control} />
+
       <Button mt={8} type="submit" colorScheme="brand">
         Submit
       </Button>

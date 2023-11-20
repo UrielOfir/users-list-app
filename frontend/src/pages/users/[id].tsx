@@ -12,7 +12,9 @@ import { toast } from "react-toastify";
 import omit from "lodash.omit";
 import { removeEmptyValues } from "@/utils/parse";
 import { UserFormRefType } from "@/components/forms/UserForm/UserForm";
+import axios from "axios";
 
+//TODO: fix the type of UserData
 type Props = {
   data: UserData;
 };
@@ -43,8 +45,8 @@ const UserId: NextPageWithLayout<Props> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id = ctx.query.id;
-  const api = getAPIClient(ctx);
-  const { data } = await api.get(`users/${id}`);
+  // const api = getAPIClient(ctx);
+  const { data } = await axios.get(`http://localhost:3010/users/${id}`);
 
   return {
     props: {

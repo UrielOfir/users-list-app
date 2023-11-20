@@ -2,7 +2,7 @@ import UsersDao from "../daos/users.dao";
 import { CRUD } from "../../common/interfaces/crud.interface";
 import { UserDto } from "../dto/user.dto";
 
-import { BasicUser } from "../../../shared-types/Users";
+import { BasicUser, DetailedUser } from "../../../shared-types/Users";
 
 const users: BasicUser[] = [
     {
@@ -86,6 +86,48 @@ const users: BasicUser[] = [
         }
     }
 ];
+
+const detailedUser: DetailedUser = {
+    "name": {
+        "title": "Mr",
+        "first": "Rick",
+        "last": "Miller"
+    },
+    "location": {
+        "street": {
+            "number": 3829,
+            "name": "James St"
+        },
+        "city": "Waxahachie",
+        "state": "South Carolina",
+        "country": "United States",
+        "postcode": 45618,
+        "coordinates": {
+            "latitude": "-37.2481",
+            "longitude": "-128.4418"
+        },
+        "timezone": {
+            "offset": "-6:00",
+            "description": "Central Time (US & Canada), Mexico City"
+        }
+    },
+    "email": "rick.miller@example.com",
+    "dob": {
+        "date": "1959-01-12T22:47:14.470Z",
+        "age": 64
+    },
+    "cell": "(308) 320-0701",
+    "id": {
+        "name": "SSN",
+        "value": "802-12-5428"
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/82.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/82.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/82.jpg"
+    },
+    "nat": "US"
+}
 
 class UsersService implements CRUD {
   async create(resource: UserDto) {
