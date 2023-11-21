@@ -13,7 +13,6 @@ import omit from "lodash.omit";
 import { removeEmptyValues } from "@/utils/parse";
 import { UserFormRefType } from "@/components/forms/UserForm/UserForm";
 import axios from "axios";
-import Image from "next/image";
 
 //TODO: fix the type of UserData
 type Props = {
