@@ -147,7 +147,7 @@ class UsersService implements CRUD {
   }
 
   async readById(resourceId: string) {
-    return UsersDao.getUserById(resourceId);
+    return detailedUser;
   }
 
   async updateById(resource: UserDto) {
